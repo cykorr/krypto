@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crypto Wallet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            transition: background-color 0.5s ease;
+            color: #333333;
+            margin: 0;
+        }
+        
+        body.dark-mode {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            color: #333333;
+        }
+        
+        .top-bar.dark-mode {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .dark-mode-text {
+            cursor: pointer;
+            color: #007bff;
+        }
+        
+        .dark-mode-text.dark-mode {
+            color: #ffffff;
+        }
+        
+        .logout-text {
+            cursor: pointer;
+            color: #007bff;
+        }
+        
+        .logout-text:hover {
+            text-decoration: underline;
+        }
+        
+        .logout-text.dark-mode {
+            color: #ffffff;
+        }
+        
+        .wallet-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #dddddd;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+        }
+        
+        .wallet-container.dark-mode {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        
+        .wallet-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .wallet-address {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .balance-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+        
+        .balance-amount {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .balance-amount.green {
+            color: #00cc00;
+        }
+        
+        .balance-amount.red {
+            color: red;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        
+        .transactions {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            text-align: center;
+        }
+        
+        .transaction {
+            margin-bottom: 10px;
+        }
+        
+        .transaction-date {
+            font-size: 14px;
+            color: #666666;
+        }
+        
+        .transaction-details {
+            font-size: 16px;
+        }
+        
+        .expand-box {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .expand-box.dark-mode {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        
+        .expand-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function toggleDarkMode() {
+            var body = document.querySelector('body');
+            body.classList.toggle('dark-mode');
+            var topBar = document.querySelector('.top-bar');
+            topBar.classList.toggle('dark-mode');
+            var darkModeText = document.querySelector('.dark-mode-text');
+            darkModeText.classList.toggle('dark-mode');
+            var logoutText = document.querySelector('.logout-text');
+            logoutText.classList.toggle('dark-mode');
+            var walletContainer = document.querySelector('.wallet-container');
+            walletContainer.classList.toggle('dark-mode');
+            var expandBox = document.getElementById('expand-box');
+            expandBox.classList.toggle('dark-mode');
+        }
+        
+        function toggleExpandBox() {
+            var expandBox = document.getElementById('expand-box');
+            expandBox.style.display = (expandBox.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function generateRandomDate(start, end) {
+            var startDate = new Date(start).getTime();
+            var endDate = new Date(end).getTime();
+            var randomTimestamp = Math.floor(Math.random() * (endDate - startDate + 1) + startDate);
+            return new Date(randomTimestamp);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var transactions = document.querySelectorAll('.transaction');
+            var startDate = '2021-01-01';
+            var endDate = '2023-07-15';
+
+            transactions.forEach(function(transaction) {
+                var transactionDateElement = transaction.querySelector('.transaction-date');
+                var randomDate = generateRandomDate(startDate, endDate);
+                transactionDateElement.textContent = randomDate.toLocaleString();
+            });
+
+            var transactionsContainer = document.querySelector('.transactions');
+            var sortedTransactions = Array.from(transactions).sort(function(a, b) {
+                var aDate = new Date(a.querySelector('.transaction-date').textContent);
+                var bDate = new Date(b.querySelector('.transaction-date').textContent);
+                return bDate - aDate;
+            });
+
+            transactionsContainer.innerHTML = '';
+
+            sortedTransactions.forEach(function(transaction) {
+                transactionsContainer.appendChild(transaction);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="dark-mode-text" onclick="toggleDarkMode()">Dark Mode</div>
+        <div class="logout-text" onclick="window.location.href = '../index.html'">Logout</div>
+    </div>
+    <div class="wallet-container">
+        <h1 class="wallet-title">Korrupt's Crypto Wallet</h1>
+        <p class="wallet-address">Your Wallet Address: 2eF9R6gTj4PqL7Yn0Xz5bHc8VmAxDw</p>
+        <div>
+            <label class="balance-label">Estimated Balance:</label>
+            <p class="balance-amount">£3,244</p>
+        </div>
+        <div>
+            <label class="balance-label">Bitcoin (BTC):</label>
+            <p class="balance-amount green">£345 (+15.94%)</p>
+        </div>
+        <div>
+            <label class="balance-label">Ethereum (ETH):</label>
+            <p class="balance-amount green">£431 (+13.60%)</p>
+            <div class="expand-box" id="expand-box">
+                <h3>Extra Balances</h3>
+                <div>
+                    <label class="balance-label">Dogecoin (DOGE):</label>
+                    <p class="balance-amount green">£22 (+15.02%)</p>
+                </div>
+                <div>
+                    <label class="balance-label">HKD=GPD Balance:</label>
+                    <p class="balance-amount green">$5,020 (+1.023%)</p>
+                </div>
+                <div>
+                    <label class="balance-label">HKD=USD Balance:</label>
+                    <p class="balance-amount red">$144 (-0.1%)</p> 
+                </div>
+            </div>
+            <button class="expand-button" id="expand-button" onclick="toggleExpandBox()">Expand</button>
+        </div>
+        <div class="transactions">
+            <h2>Recent Transactions</h2>
+            <div class="transaction">
+                <p class="transaction-details">Received 0.032 BTC from AndewPeterson (*************)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2023-07-14 16:45:12</span>
+                <p class="transaction-details">Sent 0.34 ETH to cronos345 (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2023-07-13 09:15:22</span>
+                <p class="transaction-details">Received 0.15 BTC from JohnHuges3 (*************)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2023-06-11 18:30:10</span>
+                <p class="transaction-details">Sent 1.32 ETH to Korrupt3d (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2023-04-11 14:05:45</span>
+                <p class="transaction-details">Received 0.025 BTC from CryptoMasterBTC (*************)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2023-01-10 12:40:20</span>
+                <p class="transaction-details">Sent 1.5 ETH to EthereumFan (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2022-11-25 21:55:15</span>
+                <p class="transaction-details">Received 0.05 BTC from BitcoinTrader (*************)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2022-07-20 12:10:00</span>
+                <p class="transaction-details">Sent 0.7 ETH to EthereumFan (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2022-05-20 15:44:30</span>
+                <p class="transaction-details">Sent 0.948 ETH to Anonymous (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2022-01-12 01:00:60</span>
+                <p class="transaction-details">Received 0.234 ETH to JohnHankerson (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2021-10-03 17:23:30</span>
+                <p class="transaction-details">Sent 0.803 ETH to ExdousZero (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2021-08-10 18:55:50</span>
+                <p class="transaction-details">Received 0.538 ETH from JakeETH (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2021-08-10 15:54:32</span>
+                <p class="transaction-details">Sent 0.4 BTC to TraderOrg (**********)</p>
+            </div>
+            <div class="transaction">
+                <span class="transaction-date">2021-07-01 07:40:20</span>
+                <p class="transaction-details">Sent 0.163 ETH to ScarcityUsed (**********)</p>
+                <span class="transaction-date">2021-04-25 00:20:30</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

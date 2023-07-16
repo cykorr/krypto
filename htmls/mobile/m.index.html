@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Krypto 網上錢包登入</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333333;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            margin-top: 100px;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #000000;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3; /* Light gray */
+            border-top: 16px solid #007bff; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        .wallet-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .privacy-policy {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .privacy-policy a {
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .krypto-link {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #ffffff;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .krypto-wallet-text {
+            text-align: center;
+            margin-top: 5px;
+            color: #000000;
+            font-size: 14px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 480px) {
+            .login-container {
+                margin-top: 50px;
+                padding: 10px;
+            }
+            .login-title {
+                font-size: 18px;
+            }
+            .form-group label {
+                font-size: 14px;
+            }
+            .form-group input {
+                padding: 6px;
+                font-size: 14px;
+            }
+            .button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            .loader {
+                width: 80px;
+                height: 80px;
+            }
+            .wallet-button {
+                width: 150px;
+                font-size: 12px;
+            }
+            .privacy-policy a {
+                font-size: 12px;
+            }
+            .krypto-link {
+                font-size: 10px;
+            }
+        }
+    </style>
+    <script>
+        function submitLogin() {
+            var usernameInput = document.getElementById('username');
+            var passwordInput = document.getElementById('password');
+            var username = usernameInput.value;
+            var password = passwordInput.value;
+
+            if (username === 'korrupt' && password === '123') {
+                var loginButton = document.getElementById('login-button');
+                loginButton.style.display = 'none';
+
+                var loader = document.getElementById('loader');
+                loader.style.display = 'block';
+
+                setTimeout(function() {
+                    window.location.href = 'htmls/wallet-en.html';
+                }, 3000);
+            } else {
+                alert('無效的用戶名稱或密碼。請再試一次。');
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) {
+                submitLogin();
+            }
+        }
+
+        function redirectToWalletCN() {
+            window.location.href = 'htmls/wallet-cn.html';
+        }
+
+        function redirectToWalletEN() {
+            window.location.href = 'htmls/wallet-en.html';
+        }
+
+        function redirectToPrivacyPolicy() {
+            window.location.href = 'htmls/privacy.html';
+        }
+
+        function redirectToKrypto() {
+            window.location.href = 'htmls/krypto.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h1 class="login-title"><span style="color: #000000;">Krypto 網上錢包登入</span></h1>
+        <div class="krypto-wallet-text"><span style="color: #000000;">Krypto Wallet Ltd.</span></div>
+        <div class="form-group">
+            <label for="username" style="color: #000000;">用戶名稱：</label>
+            <input type="text" id="username" placeholder="輸入您的用戶名稱" onkeypress="handleKeyPress(event)">
+        </div>
+        <div class="form-group">
+            <label for="password" style="color: #000000;">密碼：</label>
+            <input type="password" id="password" placeholder="輸入您的密碼" onkeypress="handleKeyPress(event)">
+        </div>
+        <button class="button" id="login-button" onclick="submitLogin()">登入</button>
+        <div class="loader" id="loader"></div>
+
+        <button class="wallet-button" onclick="redirectToWalletCN()">跳過登錄！</button>
+        <button class="wallet-button" onclick="redirectToWalletEN()">Skip Login!</button>
+
+        <div class="privacy-policy">
+            <a onclick="redirectToPrivacyPolicy()">Privacy Policy</a>
+        </div>
+
+        <div class="krypto-link" onclick="redirectToKrypto()">Krypto ©</div>
+    </div>
+</body>
+</html>
