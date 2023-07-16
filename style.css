@@ -1,0 +1,15 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+@font-face {
+    font-family: 'Chiron Hei HK';
+    src: url('woff2/chiron-hei-hk.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Chiron Hei HK', Arial, sans-serif;
+}
+
